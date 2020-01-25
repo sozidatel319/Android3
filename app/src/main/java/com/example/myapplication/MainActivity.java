@@ -3,14 +3,9 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-
-import com.example.myapplication.user.list.User;
+import com.example.myapplication.user.UserPresenter;
 import com.example.myapplication.user.list.UsersAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -25,14 +20,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new UsersAdapter(getTempUsers()));
-    }
-
-    private List<User> getTempUsers() {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            users.add(new User(i, "Vasya" + i, "", ""));
-        }
-        return users;
+        UserPresenter userPresenter = new UserPresenter();
+        recyclerView.setAdapter(new UsersAdapter(userPresenter.getUserList()));
     }
 }
